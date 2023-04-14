@@ -1,11 +1,11 @@
-import React, {FC, memo} from 'react';
+import React, {FC, PropsWithChildren, memo} from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 
-type ButtonProps = {
+type ButtonProps = PropsWithChildren<{
   text: string;
   onPress?: () => void;
   style?: {};
-};
+}>;
 
 const ButtonPrimary: FC<ButtonProps> = ({text, onPress, style}) => {
   console.log('button prm');
