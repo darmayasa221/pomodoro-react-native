@@ -1,38 +1,67 @@
-import React, {FC, memo, useState} from 'react';
+import React, {FC, memo} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import ButtonPrimary from '../UI/ButtonPrimary';
-import Card from '../UI/Card';
 
 type TimerProps = {
   timerHeader: string;
 };
-const Timer: FC<TimerProps> = ({timerHeader}) => {
-  console.log('timer component');
-  const [second, setSecond] = useState<number>(0);
-  const [minute, setMinute] = useState<number>(0);
-
+const Timer: FC<TimerProps> = () => {
   return (
-    <Card style={styles.card}>
-      <Text>{timerHeader}</Text>
-      <View>
-        <Text style={styles.textTimer}>
-          {minute}:{second}
-        </Text>
+    <View style={styles.timerContainer}>
+      <View style={styles.timerHeader}>
+        <ButtonPrimary style={styles.buttonHeader} text="Pomodoro" />
+        <ButtonPrimary text="Short Break" />
+        <ButtonPrimary text="Long Break" />
       </View>
-      <ButtonPrimary text="START" />
-    </Card>
+      <Text style={styles.textTimer}>00:00</Text>
+      <View style={styles.timerFooter}>
+        <ButtonPrimary style={styles.buttonStart} text="START" />
+      </View>
+    </View>
   );
 };
 
 export default memo(Timer);
 
 const styles = StyleSheet.create({
-  card: {
+  timerContainer: {
+    paddingVertical: 10,
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    marginHorizontal: 25,
     marginTop: 10,
+    borderRadius: 5,
+    rowGap: 20,
+  },
+  timerHeader: {
+    flexDirection: 'row',
+    paddingHorizontal: 30,
+    justifyContent: 'space-between',
     alignItems: 'center',
-    rowGap: 10,
   },
   textTimer: {
-    fontSize: 32,
+    fontSize: 40,
+    textAlign: 'center',
+    color: 'white',
+    fontWeight: '800',
+  },
+  buttonHeader: {
+    backgroundColor: 'rgba(0, 0, 0, 0.15)',
+    padding: 5,
+  },
+  timerFooter: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonStart: {
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    width: 100,
+    height: 30,
+    shadowColor: 'black',
+    shadowOffset: {
+      height: 2,
+      width: 0,
+    },
+    shadowOpacity: 1,
   },
 });
