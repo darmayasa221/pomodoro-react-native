@@ -4,15 +4,21 @@ import {Pressable, StyleSheet, Text, View} from 'react-native';
 type ButtonProps = PropsWithChildren<{
   text: string;
   onPress?: () => void;
-  style?: {};
+  styleView?: {};
+  styleText?: {};
 }>;
 
-const ButtonPrimary: FC<ButtonProps> = ({text, onPress, style}) => {
+const ButtonPrimary: FC<ButtonProps> = ({
+  text,
+  onPress,
+  styleView,
+  styleText,
+}) => {
   console.log('button prm');
   return (
     <Pressable onPress={onPress}>
-      <View style={{...style, ...styles.buttonContainer}}>
-        <Text style={styles.buttonText}>{text}</Text>
+      <View style={[styles.buttonContainer, styleView]}>
+        <Text style={[styles.buttonText, styleText]}>{text}</Text>
       </View>
     </Pressable>
   );
@@ -23,9 +29,10 @@ export default memo(ButtonPrimary);
 const styles = StyleSheet.create({
   buttonContainer: {
     borderRadius: 5,
+    padding: 5,
   },
   buttonText: {
-    fontSize: 28,
+    color: 'white',
     textAlign: 'center',
   },
 });
