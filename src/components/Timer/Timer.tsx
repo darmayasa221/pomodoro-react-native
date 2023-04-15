@@ -5,17 +5,26 @@ import ButtonPrimary from '../UI/ButtonPrimary';
 type TimerProps = {
   timerHeader: string;
 };
+
 const Timer: FC<TimerProps> = () => {
   return (
     <View style={styles.timerContainer}>
       <View style={styles.timerHeader}>
-        <ButtonPrimary style={styles.buttonHeader} text="Pomodoro" />
+        <ButtonPrimary
+          styleView={styles.buttonHeader}
+          styleText={styles.buttonHeaderText}
+          text="Pomodoro"
+        />
         <ButtonPrimary text="Short Break" />
         <ButtonPrimary text="Long Break" />
       </View>
       <Text style={styles.textTimer}>00:00</Text>
       <View style={styles.timerFooter}>
-        <ButtonPrimary style={styles.buttonStart} text="START" />
+        <ButtonPrimary
+          styleView={styles.buttonStart}
+          styleText={styles.buttonStartText}
+          text="START"
+        />
       </View>
     </View>
   );
@@ -44,14 +53,19 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: '800',
   },
+  // button header styling
   buttonHeader: {
     backgroundColor: 'rgba(0, 0, 0, 0.15)',
-    padding: 5,
   },
+  buttonHeaderText: {
+    fontWeight: '800',
+  },
+  // end button header
   timerFooter: {
     justifyContent: 'center',
     alignItems: 'center',
   },
+  // button start styling
   buttonStart: {
     justifyContent: 'center',
     backgroundColor: 'white',
@@ -64,4 +78,9 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 1,
   },
+  buttonStartText: {
+    fontWeight: '900',
+    color: '',
+  },
+  // end button start
 });

@@ -1,5 +1,6 @@
 import React, {FC, memo} from 'react';
 import {Pressable, StyleSheet, View} from 'react-native';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
 type CheckBoxProps = {
   onPress: () => void;
@@ -10,12 +11,9 @@ const CheckBox: FC<CheckBoxProps> = ({onPress, isChecked}) => {
   console.log('check box');
   return (
     <Pressable onPress={onPress}>
-      <View
-        style={{
-          ...styles.checkBox,
-          backgroundColor: isChecked ? 'green' : 'white',
-        }}
-      />
+      <View style={styles.checkBox}>
+        <FontAwesomeIcon name="check-circle" color={'grey'} size={30} />
+      </View>
     </Pressable>
   );
 };
@@ -23,11 +21,5 @@ const CheckBox: FC<CheckBoxProps> = ({onPress, isChecked}) => {
 export default memo(CheckBox);
 
 const styles = StyleSheet.create({
-  checkBox: {
-    borderColor: 'black',
-    borderWidth: 2,
-    width: 25,
-    height: 25,
-    borderRadius: 100,
-  },
+  checkBox: {},
 });

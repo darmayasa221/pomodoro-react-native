@@ -9,5 +9,8 @@ type ButtonPrimaryProps = PropsWithChildren<{
   styleView?: {};
   styleText?: {};
 }>;
-
-export {ButtonCostumProps, ButtonPrimaryProps};
+// tasks
+type AddTaskProps = {
+  style: {};
+};
+export {ButtonCostumProps, ButtonPrimaryProps, AddTaskProps};

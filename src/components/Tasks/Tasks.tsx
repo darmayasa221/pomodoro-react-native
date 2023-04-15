@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
-import {ScrollView, StyleSheet, TextInput, View} from 'react-native';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import Task from './Task';
-import ButtonPrimary from '../UI/ButtonPrimary';
+import TasksHeader from './TasksHeader';
 
 type TasksProps = {
   style: {};
@@ -11,37 +11,11 @@ const Tasks: FC<TasksProps> = ({style}) => {
   console.log('tasks component');
   return (
     <View>
-      <View style={styles.tasksHeader}>
-        <TextInput
-          style={styles.tasksTextInput}
-          placeholder="what are you working on?"
-        />
-        <ButtonPrimary style={style} text="+" />
-      </View>
+      <TasksHeader />
       <ScrollView>
         <View style={styles.taskList}>
           <Task />
           {/* <Task />
-          <Task />
-          <Task />
-          <Task />
-          <Task />
-          <Task />
-          <Task />
-          <Task />
-          <Task />
-          <Task />
-          <Task />
-          <Task />
-          <Task />
-          <Task />
-          <Task />
-          <Task />
-          <Task />
-          <Task />
-          <Task />
-          <Task />
-          <Task />
           <Task />
           <Task />
           <Task />
@@ -70,11 +44,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: 50,
   },
-  tasksTextInput: {
-    paddingHorizontal: 5,
-  },
   taskList: {
-    paddingTop: 2,
+    paddingTop: 10,
     rowGap: 5,
+    marginHorizontal: 10,
   },
 });

@@ -1,6 +1,8 @@
 import React, {useCallback, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import CheckBox from '../UI/CheckBox';
+import ButtonCostum from '../UI/ButtonCostum';
+import EntypoIcon from 'react-native-vector-icons/Entypo';
 
 const Task = () => {
   console.log('task components');
@@ -11,8 +13,19 @@ const Task = () => {
 
   return (
     <View style={styles.taskWrapper}>
-      <CheckBox isChecked={isChecked} onPress={checkBoxHandler} />
-      <Text style={isChecked && styles.taskText}> my tasks </Text>
+      <View style={styles.leftSide}>
+        <CheckBox isChecked={isChecked} onPress={checkBoxHandler} />
+        <Text style={styles.left_description}> my tasks </Text>
+      </View>
+      <View style={styles.rightSide}>
+        <View style={styles.rightSide_rightWrapper}>
+          <Text style={styles.right_result}>0</Text>
+          <Text style={styles.right_target}> / 0</Text>
+        </View>
+        <ButtonCostum style={styles.button}>
+          <EntypoIcon name="dots-three-vertical" size={20} color={'grey'} />
+        </ButtonCostum>
+      </View>
     </View>
   );
 };
@@ -23,12 +36,49 @@ const styles = StyleSheet.create({
   taskWrapper: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: 5,
-    border: 'grey',
-    borderWidth: 1,
-    borderRadius: 3,
+    paddingVertical: 15,
+    paddingHorizontal: 10,
+    borderRadius: 5,
+    backgroundColor: 'white',
   },
-  taskText: {
-    textDecorationLine: 'line-through',
+  leftSide: {
+    flexDirection: 'row',
+    columnGap: 5,
+    alignItems: 'center',
   },
+  left_description: {
+    fontWeight: '800',
+    fontSize: 14,
+    color: 'rgb(85, 85, 85)',
+  },
+  // right side style
+  rightSide: {
+    flexDirection: 'row',
+    columnGap: 15,
+    alignItems: 'center',
+  },
+  rightSide_rightWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  right_result: {
+    fontSize: 16,
+    fontWeight: 800,
+    color: 'grey',
+  },
+  right_target: {
+    fontSize: 12,
+    fontWeight: 800,
+    color: 'grey',
+  },
+  // end right side
+  button: {
+    paddingVertical: 5,
+    borderRadius: 5,
+    borderColor: 'grey',
+    borderWidth: 0.5,
+  },
+  // taskText: {
+  //   textDecorationLine: 'line-through',
+  // },
 });
