@@ -12,10 +12,8 @@ const Tasks: FC<TasksProps> = ({style}) => {
   return (
     <View>
       <TasksHeader />
-      <ScrollView>
-        <View style={styles.taskList}>
-          <Task />
-          {/* <Task />
+      <ScrollView style={styles.taskListContainer}>
+        <View style={styles.taskListWrapper}>
           <Task />
           <Task />
           <Task />
@@ -25,7 +23,7 @@ const Tasks: FC<TasksProps> = ({style}) => {
           <Task />
           <Task />
           <Task />
-          <Task /> */}
+          <Task />
         </View>
       </ScrollView>
     </View>
@@ -44,7 +42,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: 50,
   },
-  taskList: {
+  taskListContainer: {
+    maxHeight: '63%',
+    height: '63%',
+  },
+  taskListWrapper: {
     paddingTop: 10,
     rowGap: 5,
     marginHorizontal: 10,
