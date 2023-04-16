@@ -1,0 +1,1 @@
+// outputCount type component

@@ -2,10 +2,7 @@ import React, {FC} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import Task from './Task';
 import TasksHeader from './TasksHeader';
-
-type TasksProps = {
-  style: {};
-};
+import {TasksProps} from '../../types/tasks';
 
 const Tasks: FC<TasksProps> = ({style}) => {
   console.log('tasks component');

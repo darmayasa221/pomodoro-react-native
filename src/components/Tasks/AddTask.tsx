@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import ButtonCostum from '../UI/ButtonCostum';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
-import {AddTaskProps} from '../../types/types';
+import {AddTaskProps} from '../../types/tasks';
 
 const AddTask: FC<AddTaskProps> = ({style}) => {
   return (

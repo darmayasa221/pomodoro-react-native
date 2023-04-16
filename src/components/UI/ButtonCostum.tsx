@@ -1,6 +1,6 @@
 import React, {FC, memo} from 'react';
 import {Pressable, StyleSheet, View} from 'react-native';
-import {ButtonCostumProps} from '../../types/types';
+import {ButtonCostumProps} from '../../types/ui';
 
 const ButtonCostum: FC<ButtonCostumProps> = ({children, style}) => {
   return (

@@ -1,11 +1,7 @@
 import React, {FC, memo} from 'react';
 import {Pressable, StyleSheet, View} from 'react-native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
-
-type CheckBoxProps = {
-  onPress: () => void;
-  isChecked: boolean;
-};
+import {CheckBoxProps} from '../../types/ui';
 
 const CheckBox: FC<CheckBoxProps> = ({onPress, isChecked}) => {
   console.log('check box');

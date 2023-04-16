@@ -1,12 +1,8 @@
-import React, {FC, memo} from 'react';
+import React, {memo} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import ButtonPrimary from '../UI/ButtonPrimary';
 
-type TimerProps = {
-  timerHeader: string;
-};
-
-const Timer: FC<TimerProps> = () => {
+const Timer = () => {
   return (
     <View style={styles.timerContainer}>
       <View style={styles.timerHeader}>

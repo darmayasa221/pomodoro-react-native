@@ -1,6 +1,6 @@
 import React, {FC, memo} from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
-import {ButtonPrimaryProps} from '../../types/types';
+import {ButtonPrimaryProps} from '../../types/ui';
 
 const ButtonPrimary: FC<ButtonPrimaryProps> = ({
   text,

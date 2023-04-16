@@ -2,6 +2,7 @@ import React from 'react';
 import ButtonCostum from '../UI/ButtonCostum';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import {StyleSheet, Text, View} from 'react-native';
+
 const TasksHeader = () => {
   return (
     <View style={styles.tasksHeaderWrapper}>
