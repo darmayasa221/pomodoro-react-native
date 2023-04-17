@@ -2,11 +2,11 @@ import React, {FC} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import ButtonCostum from '../UI/ButtonCostum';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
-import {AddTaskProps} from '../../types/tasks';
+import {TaskFooterProps} from '../../types/tasks';
 
-const AddTask: FC<AddTaskProps> = ({style}) => {
+const TaskFooter: FC<TaskFooterProps> = ({style}) => {
   return (
-    <View style={[styles.addTaskWrapper, style]}>
+    <View style={[styles.taskFooterWrapper, style]}>
       <ButtonCostum style={styles.button}>
         <FontAwesomeIcon name="plus-circle" size={20} color={'white'} />
         <Text style={styles.text}>Add Task</Text>
@@ -15,10 +15,10 @@ const AddTask: FC<AddTaskProps> = ({style}) => {
   );
 };
 
-export default AddTask;
+export default TaskFooter;
 
 const styles = StyleSheet.create({
-  addTaskWrapper: {
+  taskFooterWrapper: {
     marginHorizontal: 10,
   },
   button: {

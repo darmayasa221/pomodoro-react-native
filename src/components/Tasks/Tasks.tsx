@@ -12,6 +12,7 @@ const Tasks: FC<TasksProps> = ({style}) => {
       <ScrollView style={styles.taskListContainer}>
         <View style={styles.taskListWrapper}>
           <Task />
+          {/* <Task />
           <Task />
           <Task />
           <Task />
@@ -19,8 +20,7 @@ const Tasks: FC<TasksProps> = ({style}) => {
           <Task />
           <Task />
           <Task />
-          <Task />
-          <Task />
+          <Task /> */}
         </View>
       </ScrollView>
     </View>

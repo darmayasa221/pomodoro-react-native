@@ -1,24 +1,32 @@
-import React, {memo} from 'react';
+import React, {memo, FC} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import ButtonPrimary from '../UI/ButtonPrimary';
+import {TimerProps} from '../../types/timer';
 
-const Timer = () => {
+const Timer: FC<TimerProps> = ({menu, onPress, isActivedColor}) => {
   return (
     <View style={styles.timerContainer}>
       <View style={styles.timerHeader}>
-        <ButtonPrimary
-          styleView={styles.buttonHeader}
-          styleText={styles.buttonHeaderText}
-          text="Pomodoro"
-        />
-        <ButtonPrimary text="Short Break" />
-        <ButtonPrimary text="Long Break" />
+        {menu.map(({active, name, type}) => (
+          <ButtonPrimary
+            key={type}
+            styleView={active && styles.buttonHeader}
+            styleText={styles.buttonHeaderText}
+            text={name}
+            onPress={() => {
+              onPress({type: type});
+            }}
+          />
+        ))}
       </View>
       <Text style={styles.textTimer}>00:00</Text>
       <View style={styles.timerFooter}>
         <ButtonPrimary
           styleView={styles.buttonStart}
-          styleText={styles.buttonStartText}
+          styleText={{
+            ...styles.buttonStartText,
+            color: isActivedColor,
+          }}
           text="START"
         />
       </View>
@@ -76,7 +84,6 @@ const styles = StyleSheet.create({
   },
   buttonStartText: {
     fontWeight: '900',
-    color: '',
   },
   // end button start
 });

@@ -63,12 +63,12 @@ const styles = StyleSheet.create({
   },
   right_result: {
     fontSize: 16,
-    fontWeight: 800,
+    fontWeight: '800',
     color: 'grey',
   },
   right_target: {
     fontSize: 12,
-    fontWeight: 800,
+    fontWeight: '800',
     color: 'grey',
   },
   // end right side

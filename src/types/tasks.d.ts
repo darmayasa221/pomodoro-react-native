@@ -1,5 +1,5 @@
 // tasks type component
-export type AddTaskProps = {
+export type TaskFooterProps = {
   style: {};
 };
 

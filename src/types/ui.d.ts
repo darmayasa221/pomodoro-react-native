@@ -9,6 +9,7 @@ export type ButtonPrimaryProps = PropsWithChildren<{
   onPress?: () => void;
   styleView?: {};
   styleText?: {};
+  isActived?: boolean;
 }>;
 export type CheckBoxProps = {
   onPress: () => void;
