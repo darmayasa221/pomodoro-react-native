@@ -12,34 +12,40 @@ const Timer: FC<TimerProps> = ({menu, onPress, isActivedColor}) => {
     minute: 0,
     second: 10,
   });
-  const [timerDisplay, setTimerDisplay] = useState<string>('');
+  const [timerDisplay, setTimerDisplay] = useState<string>('00:00');
   const [timerIsActived, setTimerIsActived] = useState<boolean>(false);
   useEffect(() => {
-    const timerCount = countDownTimer(timerValue);
-    setTimerDisplay(() => timerCount);
-  }, [timerValue]);
-
-  const timerHandle = () => {
-    setTimerIsActived(prev => !prev);
-    const timerInter = setInterval(() => {
-      if (timerIsActived) {
-        if (timerValue.minute >= 0) {
-          if (timerValue.second >= 1) {
+    let intervalTimer: number = 0;
+    if (timerIsActived) {
+      intervalTimer = setInterval(() => {
+        console.log('interval');
+        if (timerValue.second >= 1) {
+          setTimerValue(prev => ({...prev, second: prev.second - 1}));
+        }
+        if (timerValue.second === 0) {
+          if (timerValue.minute >= 1) {
             setTimerValue(prev => ({
               ...prev,
-              second: prev.second - 1,
-            }));
-          } else {
-            setTimerValue(prev => ({
-              ...prev,
-              second: 60,
               minute: prev.minute - 1,
+              second: 60,
             }));
           }
         }
-      }
-    }, 1000);
-    clearInterval(timerInter);
+        clearInterval(intervalTimer);
+      }, 1000);
+    }
+    if (timerValue.minute === 0 && timerValue.second === 0) {
+      setTimerIsActived(() => false);
+      setTimerValue(prev => ({...prev, minute: 0, second: 10}));
+    }
+    setTimerDisplay(() => countDownTimer(timerValue));
+    return () => {
+      clearInterval(intervalTimer);
+    };
+  }, [timerIsActived, timerValue]);
+
+  const timerHandle = () => {
+    setTimerIsActived(prev => !prev);
   };
   return (
     <View style={styles.timerContainer}>
