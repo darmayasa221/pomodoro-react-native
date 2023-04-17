@@ -1,9 +1,46 @@
-import React, {memo, FC} from 'react';
+import React, {memo, FC, useState, useEffect} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import ButtonPrimary from '../UI/ButtonPrimary';
 import {TimerProps} from '../../types/timer';
+import countDownTimer from '../../utils/counDownTimer';
 
 const Timer: FC<TimerProps> = ({menu, onPress, isActivedColor}) => {
+  const [timerValue, setTimerValue] = useState<{
+    minute: number;
+    second: number;
+  }>({
+    minute: 0,
+    second: 10,
+  });
+  const [timerDisplay, setTimerDisplay] = useState<string>('');
+  const [timerIsActived, setTimerIsActived] = useState<boolean>(false);
+  useEffect(() => {
+    const timerCount = countDownTimer(timerValue);
+    setTimerDisplay(() => timerCount);
+  }, [timerValue]);
+
+  const timerHandle = () => {
+    setTimerIsActived(prev => !prev);
+    const timerInter = setInterval(() => {
+      if (timerIsActived) {
+        if (timerValue.minute >= 0) {
+          if (timerValue.second >= 1) {
+            setTimerValue(prev => ({
+              ...prev,
+              second: prev.second - 1,
+            }));
+          } else {
+            setTimerValue(prev => ({
+              ...prev,
+              second: 60,
+              minute: prev.minute - 1,
+            }));
+          }
+        }
+      }
+    }, 1000);
+    clearInterval(timerInter);
+  };
   return (
     <View style={styles.timerContainer}>
       <View style={styles.timerHeader}>
@@ -19,7 +56,7 @@ const Timer: FC<TimerProps> = ({menu, onPress, isActivedColor}) => {
           />
         ))}
       </View>
-      <Text style={styles.textTimer}>00:00</Text>
+      <Text style={styles.textTimer}>{timerDisplay}</Text>
       <View style={styles.timerFooter}>
         <ButtonPrimary
           styleView={styles.buttonStart}
@@ -28,6 +65,7 @@ const Timer: FC<TimerProps> = ({menu, onPress, isActivedColor}) => {
             color: isActivedColor,
           }}
           text="START"
+          onPress={timerHandle}
         />
       </View>
     </View>

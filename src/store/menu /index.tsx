@@ -32,7 +32,6 @@ const menuInitialState: MenuInitialStateType = {
 
 const MenuContextProvider: FC<MenuContextProviderType> = ({children}) => {
   const [state, dispatch] = useReducer(menuReducer, menuInitialState);
-  console.log('context');
   const stateMemo: MenuContextType = useMemo(
     () => ({
       state,

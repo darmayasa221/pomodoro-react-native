@@ -28,5 +28,4 @@ const menuReducer = (state: MenuInitialStateType, action: MenuActionType) => {
   }
   return state;
 };
-
 export default menuReducer;
