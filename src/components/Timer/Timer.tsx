@@ -9,6 +9,7 @@ import {
 } from '../../types/store/timer/timer';
 import moment from 'moment';
 import notifee from '@notifee/react-native';
+import BackgroundTimer from 'react-native-background-timer';
 
 const Timer: FC<TimerProps> = ({menu, onPress, isActived}) => {
   const [timerDisplay, setTimerDisplay] = useState<string>('00:00');
@@ -16,9 +17,7 @@ const Timer: FC<TimerProps> = ({menu, onPress, isActived}) => {
     start: false,
     buttonText: 'START',
   });
-  // const sendNotification = () => {
 
-  // };
   useEffect(() => {
     if (!timerIsActived.start) {
       const reslutString = moment({
@@ -38,10 +37,9 @@ const Timer: FC<TimerProps> = ({menu, onPress, isActived}) => {
       minutes: isActived.time?.minute,
       seconds: isActived.time?.second,
     });
-
     if (timerIsActived.start) {
       intervalTimer = setInterval(() => {
-        if (timerToCount <= 0) {
+        if (!minute && !second) {
           clearInterval(intervalTimer);
           setTimerIsActived(prev => ({
             ...prev,
@@ -79,6 +77,7 @@ const Timer: FC<TimerProps> = ({menu, onPress, isActived}) => {
           time: defaultTime,
         },
       });
+      BackgroundTimer.stop();
     }
     return () => {
       clearInterval(intervalTimer);
@@ -86,6 +85,7 @@ const Timer: FC<TimerProps> = ({menu, onPress, isActived}) => {
   }, [timerIsActived, isActived.time, isActived.name, onPress]);
 
   const timerHandle = () => {
+    BackgroundTimer.start();
     setTimerIsActived(prev => ({
       ...prev,
       buttonText: !prev.start ? 'STOP' : 'START',
