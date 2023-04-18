@@ -1,13 +1,13 @@
 import React from 'react';
 import MainScreen from './src/screens/MainScreen';
-import MenuContextProvider from './src/store/menu ';
+import TimerContextProvider from './src/store/Timer';
 
 const App = () => {
   console.log('app');
   return (
-    <MenuContextProvider>
+    <TimerContextProvider>
       <MainScreen />
-    </MenuContextProvider>
+    </TimerContextProvider>
   );
 };
 

@@ -11,34 +11,39 @@ import {TimerActionType} from '../types/store/timer/timer';
 import checkActiveMenu from '../utils/checkActiveMenu';
 
 const MainScreen = () => {
+  const a = useContext(TimerContext);
+  console.log(a);
   const {state: timerState, dispatch: timerDispatch} = useContext(TimerContext);
-  const isActived = checkActiveMenu(timerState);
-  const timerMemo = useMemo(() => timerState.menu, [timerState]);
-  const menuHandler = useCallback(
-    (action: TimerActionType) => {
-      timerDispatch(action);
-    },
-    [timerDispatch],
-  );
+  // console.log(timerState);
+  // // const isActived = checkActiveMenu(timerState);
+  // const timerMemo = useMemo(() => timerState.data, [timerState]);
+
+  // const menuHandler = useCallback(
+  //   (action: TimerActionType) => {
+  //     timerDispatch(action);
+  //   },
+  //   [timerDispatch],
+  // );
   return (
-    <View
-      style={{
-        ...styles.container,
-        backgroundColor: isActived?.color,
-      }}>
-      <SafeAreaView />
-      <Header />
-      <Timer menu={timerMemo} onPress={menuHandler} isActived={isActived} />
-      <OutputCount />
-      <Tasks style={{}} />
-      <View
-        style={{
-          ...styles.footer,
-          backgroundColor: isActived?.color,
-        }}>
-        <TaskFooter style={{}} />
-      </View>
-    </View>
+    <View />
+    // <View
+    //   style={{
+    //     ...styles.container,
+    //     backgroundColor: isActived?.color,
+    //   }}>
+    //   <SafeAreaView />
+    //   <Header />
+    //   <Timer menu={timerMemo} onPress={menuHandler} isActived={isActived} />
+    //   <OutputCount />
+    //   <Tasks style={{}} />
+    //   <View
+    //     style={{
+    //       ...styles.footer,
+    //       backgroundColor: isActived?.color,
+    //     }}>
+    //     <TaskFooter style={{}} />
+    //   </View>
+    // </View>
   );
 };
 
