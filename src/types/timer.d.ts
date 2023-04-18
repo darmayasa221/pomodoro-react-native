@@ -1,8 +1,8 @@
-import {MenuActionType, MenuItemType} from './store/menu/menu';
+import {TimerActionType, TimerItemType} from './store/timer/timer';
 
 // timer type component
 export type TimerProps = {
-  isActivedColor: string;
-  menu: Array<MenuItemType>;
-  onPress: (action: MenuActionType) => void;
+  isActived: TimerItemType;
+  menu: Array<TimerItemType>;
+  onPress: (action: TimerActionType) => void;
 };
