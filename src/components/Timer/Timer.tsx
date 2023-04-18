@@ -3,34 +3,29 @@ import {StyleSheet, Text, View} from 'react-native';
 import ButtonPrimary from '../UI/ButtonPrimary';
 import {TimerProps} from '../../types/timer';
 import countDownTimer from '../../utils/counDownTimer';
+import {TimeType, TimerIsActivedType} from '../../types/store/timer/timer';
 
 const Timer: FC<TimerProps> = ({menu, onPress, isActived}) => {
-  const [timerValue, setTimerValue] = useState<{
-    minute: number;
-    second: number;
-  }>(isActived.time);
+  const [timeValue, setTimeValue] = useState<TimeType>(isActived.time);
   const [timerDisplay, setTimerDisplay] = useState<string>('00:00');
-  const [timerIsActived, setTimerIsActived] = useState<{
-    start: boolean;
-    buttonText: string;
-  }>({
+  const [timerIsActived, setTimerIsActived] = useState<TimerIsActivedType>({
     start: false,
     buttonText: 'START',
   });
   useEffect(() => {
-    setTimerValue(prev => ({...prev, ...isActived.time}));
+    setTimeValue(prev => ({...prev, ...isActived.time}));
   }, [isActived]);
   useEffect(() => {
     let intervalTimer: number = 0;
     if (timerIsActived.start) {
       intervalTimer = setInterval(() => {
         console.log('interval');
-        if (timerValue.second >= 1) {
-          setTimerValue(prev => ({...prev, second: prev.second - 1}));
+        if (timeValue.second >= 1) {
+          setTimeValue(prev => ({...prev, second: prev.second - 1}));
         }
-        if (timerValue.second === 0) {
-          if (timerValue.minute >= 1) {
-            setTimerValue(prev => ({
+        if (timeValue.second === 0) {
+          if (timeValue.minute >= 1) {
+            setTimeValue(prev => ({
               ...prev,
               minute: prev.minute - 1,
               second: 60,
@@ -40,19 +35,19 @@ const Timer: FC<TimerProps> = ({menu, onPress, isActived}) => {
         clearInterval(intervalTimer);
       }, 1000);
     }
-    if (timerValue.minute === 0 && timerValue.second === 0) {
+    if (timeValue.minute === 0 && timeValue.second === 0) {
       setTimerIsActived(prev => ({
         ...prev,
         buttonText: 'START',
         start: false,
       }));
-      setTimerValue(prev => ({...prev, minute: 0, second: 10}));
+      setTimeValue(prev => ({...prev, minute: 0, second: 10}));
     }
-    setTimerDisplay(() => countDownTimer(timerValue));
+    setTimerDisplay(() => countDownTimer(timeValue));
     return () => {
       clearInterval(intervalTimer);
     };
-  }, [timerIsActived, timerValue]);
+  }, [timerIsActived, timeValue]);
 
   const timerHandle = () => {
     setTimerIsActived(prev => ({
