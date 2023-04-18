@@ -10,11 +10,11 @@ export type TimeType = {
   second: number;
 };
 export type TimerItemType = {
-  name: string;
-  activeMenu: boolean;
-  color: string;
-  type: ActionType;
-  time: TimeType;
+  name?: string;
+  activeMenu?: boolean;
+  color?: string;
+  type?: ActionType;
+  time?: TimeType;
 };
 export type TimerInitialStateType = {
   data: Array<TimerItemType>;
