@@ -1,14 +1,13 @@
 import React from 'react';
 import MainScreen from './src/screens/MainScreen';
-import MenuContextProvider from './src/store/Timer';
-import PushNotificationIOS from '@react-native-community/push-notification-ios';
+import TimerContextProvider from './src/store/Timer';
 
 const App = () => {
   console.log('app');
   return (
-    <MenuContextProvider>
+    <TimerContextProvider>
       <MainScreen />
-    </MenuContextProvider>
+    </TimerContextProvider>
   );
 };
 

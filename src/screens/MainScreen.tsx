@@ -1,4 +1,11 @@
-import React, {useContext, memo, useCallback, useMemo} from 'react';
+import React, {
+  useContext,
+  memo,
+  useCallback,
+  useMemo,
+  useEffect,
+  useState,
+} from 'react';
 import {SafeAreaView, StyleSheet, View} from 'react-native';
 
 import Header from '../components/Header/Header';
@@ -7,13 +14,21 @@ import OutputCount from '../components/OutputCount/OutputCount';
 import Tasks from '../components/Tasks/Tasks';
 import TaskFooter from '../components/Tasks/TaskFooter';
 import TimerContext from '../store/Timer/context';
-import {TimerActionType} from '../types/store/timer/timer';
+import {TimerActionType, TimerItemType} from '../types/store/timer/timer';
 import checkActiveMenu from '../utils/checkActiveMenu';
 
 const MainScreen = () => {
   const {state: timerState, dispatch: timerDispatch} = useContext(TimerContext);
-  const isActived = checkActiveMenu(timerState);
-  const timerMemo = useMemo(() => timerState.menu, [timerState]);
+  const timerMemo = useMemo(() => timerState, [timerState]);
+  const [isActived, setIsActived] = useState<TimerItemType>(
+    {} as TimerItemType,
+  );
+
+  useEffect(() => {
+    const actived = checkActiveMenu(timerMemo);
+    setIsActived(prev => ({...prev, ...actived}));
+  }, [timerMemo]);
+
   const menuHandler = useCallback(
     (action: TimerActionType) => {
       timerDispatch(action);
@@ -28,7 +43,11 @@ const MainScreen = () => {
       }}>
       <SafeAreaView />
       <Header />
-      <Timer menu={timerMemo} onPress={menuHandler} isActived={isActived} />
+      <Timer
+        menu={timerMemo.data}
+        onPress={menuHandler}
+        isActived={isActived as TimerItemType}
+      />
       <OutputCount />
       <Tasks style={{}} />
       <View
