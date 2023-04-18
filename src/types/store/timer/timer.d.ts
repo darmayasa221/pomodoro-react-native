@@ -28,3 +28,7 @@ export type TimerContextType = {
   dispatch: Dispatch<TimerActionType>;
 };
 export type TimerContextProviderType = PropsWithChildren;
+export type TimerIsActivedType = {
+  start: boolean;
+  buttonText: string;
+};
