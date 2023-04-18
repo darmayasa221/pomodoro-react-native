@@ -8,6 +8,7 @@ import {
   TimerIsActivedType,
 } from '../../types/store/timer/timer';
 import moment from 'moment';
+import notifee from '@notifee/react-native';
 
 const Timer: FC<TimerProps> = ({menu, onPress, isActived}) => {
   const [timerDisplay, setTimerDisplay] = useState<string>('00:00');
@@ -15,6 +16,9 @@ const Timer: FC<TimerProps> = ({menu, onPress, isActived}) => {
     start: false,
     buttonText: 'START',
   });
+  // const sendNotification = () => {
+
+  // };
   useEffect(() => {
     if (!timerIsActived.start) {
       const reslutString = moment({
@@ -39,6 +43,11 @@ const Timer: FC<TimerProps> = ({menu, onPress, isActived}) => {
       intervalTimer = setInterval(() => {
         if (timerToCount <= 0) {
           clearInterval(intervalTimer);
+          setTimerIsActived(prev => ({
+            ...prev,
+            buttonText: !prev.start ? 'STOP' : 'START',
+            start: false,
+          }));
         } else {
           const resultTime = timerToCount.subtract(1, 's');
           minute = resultTime.minutes();
@@ -59,6 +68,10 @@ const Timer: FC<TimerProps> = ({menu, onPress, isActived}) => {
       }, 1000);
     }
     if (minute === 0 && second === 0) {
+      notifee.displayNotification({
+        title: `${isActived.name} is end`,
+        body: 'congrats you have been finish your goals',
+      });
       onPress({
         type: 'START_TIMER',
         payload: {
