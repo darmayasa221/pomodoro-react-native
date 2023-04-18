@@ -12,7 +12,10 @@ import checkActiveMenu from '../utils/checkActiveMenu';
 
 const MainScreen = () => {
   const {state: timerState, dispatch: timerDispatch} = useContext(TimerContext);
-  const isActived = checkActiveMenu(timerState);
+  const isActivedMemo = useMemo(
+    () => checkActiveMenu(timerState),
+    [timerState],
+  );
   const timerMemo = useMemo(() => timerState.data, [timerState]);
   const menuHandler = useCallback(
     (action: TimerActionType) => {
@@ -24,21 +27,21 @@ const MainScreen = () => {
     <View
       style={{
         ...styles.container,
-        backgroundColor: isActived?.color,
+        backgroundColor: isActivedMemo?.color,
       }}>
       <SafeAreaView />
       <Header />
       <Timer
         menu={timerMemo}
         onPress={menuHandler}
-        isActived={isActived as TimerItemType}
+        isActived={isActivedMemo as TimerItemType}
       />
       <OutputCount />
       <Tasks style={{}} />
       <View
         style={{
           ...styles.footer,
-          backgroundColor: isActived?.color,
+          backgroundColor: isActivedMemo?.color,
         }}>
         <TaskFooter style={{}} />
       </View>
