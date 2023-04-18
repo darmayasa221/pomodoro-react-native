@@ -25,8 +25,8 @@ const timerInitialState: TimerInitialStateType = {
       color: 'rgb(56, 133, 138)',
       type: 'SHORT_BREAK',
       time: {
-        minute: 5,
-        second: 0,
+        minute: 0,
+        second: 15,
       },
     },
     {
