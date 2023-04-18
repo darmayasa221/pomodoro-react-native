@@ -2,62 +2,94 @@ import React, {memo, FC, useState, useEffect} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import ButtonPrimary from '../UI/ButtonPrimary';
 import {TimerProps} from '../../types/timer';
-import countDownTimer from '../../utils/counDownTimer';
+import {
+  ActionType,
+  TimeType,
+  TimerIsActivedType,
+} from '../../types/store/timer/timer';
+import moment from 'moment';
 
-const Timer: FC<TimerProps> = ({menu, onPress, isActivedColor}) => {
-  const [timerValue, setTimerValue] = useState<{
-    minute: number;
-    second: number;
-  }>({
-    minute: 0,
-    second: 10,
-  });
+const Timer: FC<TimerProps> = ({menu, onPress, isActived}) => {
   const [timerDisplay, setTimerDisplay] = useState<string>('00:00');
-  const [timerIsActived, setTimerIsActived] = useState<boolean>(false);
+  const [timerIsActived, setTimerIsActived] = useState<TimerIsActivedType>({
+    start: false,
+    buttonText: 'START',
+  });
+  useEffect(() => {
+    if (!timerIsActived.start) {
+      const reslutString = moment({
+        minute: isActived.time?.minute,
+        second: isActived.time?.second,
+      }).format('mm:ss');
+      setTimerDisplay(() => reslutString);
+    }
+  }, [isActived.time, timerIsActived.start]);
+
   useEffect(() => {
     let intervalTimer: number = 0;
-    if (timerIsActived) {
+    const defaultTime: TimeType = isActived?.time as TimeType;
+    let minute: number = isActived.time?.minute as number;
+    let second: number = isActived.time?.second as number;
+    const timerToCount = moment.duration().add({
+      minutes: isActived.time?.minute,
+      seconds: isActived.time?.second,
+    });
+
+    if (timerIsActived.start) {
       intervalTimer = setInterval(() => {
-        console.log('interval');
-        if (timerValue.second >= 1) {
-          setTimerValue(prev => ({...prev, second: prev.second - 1}));
+        if (timerToCount <= 0) {
+          clearInterval(intervalTimer);
+        } else {
+          const resultTime = timerToCount.subtract(1, 's');
+          minute = resultTime.minutes();
+          second = resultTime.seconds();
+          const reslutString = moment({minute, second}).format('mm:ss');
+          setTimerDisplay(() => reslutString);
+          onPress({
+            type: 'START_TIMER',
+            payload: {
+              name: isActived.name,
+              time: {
+                minute: minute,
+                second: second,
+              },
+            },
+          });
         }
-        if (timerValue.second === 0) {
-          if (timerValue.minute >= 1) {
-            setTimerValue(prev => ({
-              ...prev,
-              minute: prev.minute - 1,
-              second: 60,
-            }));
-          }
-        }
-        clearInterval(intervalTimer);
       }, 1000);
     }
-    if (timerValue.minute === 0 && timerValue.second === 0) {
-      setTimerIsActived(() => false);
-      setTimerValue(prev => ({...prev, minute: 0, second: 10}));
+    if (minute === 0 && second === 0) {
+      onPress({
+        type: 'START_TIMER',
+        payload: {
+          name: isActived.name,
+          time: defaultTime,
+        },
+      });
     }
-    setTimerDisplay(() => countDownTimer(timerValue));
     return () => {
       clearInterval(intervalTimer);
     };
-  }, [timerIsActived, timerValue]);
+  }, [timerIsActived, isActived.time, isActived.name, onPress]);
 
   const timerHandle = () => {
-    setTimerIsActived(prev => !prev);
+    setTimerIsActived(prev => ({
+      ...prev,
+      buttonText: !prev.start ? 'STOP' : 'START',
+      start: !prev.start,
+    }));
   };
   return (
     <View style={styles.timerContainer}>
       <View style={styles.timerHeader}>
-        {menu.map(({active, name, type}) => (
+        {menu.map(({activeMenu, name, type}) => (
           <ButtonPrimary
             key={type}
-            styleView={active && styles.buttonHeader}
+            styleView={activeMenu && styles.buttonHeader}
             styleText={styles.buttonHeaderText}
-            text={name}
+            text={name as string}
             onPress={() => {
-              onPress({type: type});
+              onPress({type: type as ActionType});
             }}
           />
         ))}
@@ -68,9 +100,9 @@ const Timer: FC<TimerProps> = ({menu, onPress, isActivedColor}) => {
           styleView={styles.buttonStart}
           styleText={{
             ...styles.buttonStartText,
-            color: isActivedColor,
+            color: isActived.color,
           }}
-          text="START"
+          text={timerIsActived.buttonText}
           onPress={timerHandle}
         />
       </View>

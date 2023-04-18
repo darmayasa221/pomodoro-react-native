@@ -1,7 +1,7 @@
-import {MenuInitialStateType} from '../types/store/menu/menu';
+import {TimerInitialStateType} from '../types/store/timer/timer';
 
-const checkActiveMenu = (params: MenuInitialStateType) => {
-  const actived = params.menu.find(({active}) => active === true);
+const checkActiveMenu = (params: TimerInitialStateType) => {
+  const actived = params.data.find(({activeMenu}) => activeMenu === true);
   return actived;
 };
 
