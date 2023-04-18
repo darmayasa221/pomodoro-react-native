@@ -4,14 +4,11 @@ import ButtonPrimary from '../UI/ButtonPrimary';
 import {TimerProps} from '../../types/timer';
 import countDownTimer from '../../utils/counDownTimer';
 
-const Timer: FC<TimerProps> = ({menu, onPress, isActivedColor}) => {
+const Timer: FC<TimerProps> = ({menu, onPress, isActived}) => {
   const [timerValue, setTimerValue] = useState<{
     minute: number;
     second: number;
-  }>({
-    minute: 0,
-    second: 10,
-  });
+  }>(isActived.time);
   const [timerDisplay, setTimerDisplay] = useState<string>('00:00');
   const [timerIsActived, setTimerIsActived] = useState<boolean>(false);
   useEffect(() => {
@@ -50,10 +47,10 @@ const Timer: FC<TimerProps> = ({menu, onPress, isActivedColor}) => {
   return (
     <View style={styles.timerContainer}>
       <View style={styles.timerHeader}>
-        {menu.map(({active, name, type}) => (
+        {menu.map(({activeMenu, name, type}) => (
           <ButtonPrimary
             key={type}
-            styleView={active && styles.buttonHeader}
+            styleView={activeMenu && styles.buttonHeader}
             styleText={styles.buttonHeaderText}
             text={name}
             onPress={() => {
@@ -68,7 +65,7 @@ const Timer: FC<TimerProps> = ({menu, onPress, isActivedColor}) => {
           styleView={styles.buttonStart}
           styleText={{
             ...styles.buttonStartText,
-            color: isActivedColor,
+            color: isActived.color,
           }}
           text="START"
           onPress={timerHandle}
