@@ -5,15 +5,16 @@ export type ActionType =
   | 'SHORT_BREAK'
   | 'LONG_BREAK'
   | 'START_TIMER';
+export type TimeType = {
+  minute: number;
+  second: number;
+};
 export type TimerItemType = {
   name: string;
   activeMenu: boolean;
   color: string;
   type: ActionType;
-  time: {
-    minute: number;
-    second: number;
-  };
+  time: TimeType;
 };
 export type TimerInitialStateType = {
   data: Array<TimerItemType>;
