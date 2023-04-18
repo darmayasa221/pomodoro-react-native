@@ -10,10 +10,19 @@ const Timer: FC<TimerProps> = ({menu, onPress, isActived}) => {
     second: number;
   }>(isActived.time);
   const [timerDisplay, setTimerDisplay] = useState<string>('00:00');
-  const [timerIsActived, setTimerIsActived] = useState<boolean>(false);
+  const [timerIsActived, setTimerIsActived] = useState<{
+    start: boolean;
+    buttonText: string;
+  }>({
+    start: false,
+    buttonText: 'START',
+  });
+  useEffect(() => {
+    setTimerValue(prev => ({...prev, ...isActived.time}));
+  }, [isActived]);
   useEffect(() => {
     let intervalTimer: number = 0;
-    if (timerIsActived) {
+    if (timerIsActived.start) {
       intervalTimer = setInterval(() => {
         console.log('interval');
         if (timerValue.second >= 1) {
@@ -32,7 +41,11 @@ const Timer: FC<TimerProps> = ({menu, onPress, isActived}) => {
       }, 1000);
     }
     if (timerValue.minute === 0 && timerValue.second === 0) {
-      setTimerIsActived(() => false);
+      setTimerIsActived(prev => ({
+        ...prev,
+        buttonText: 'START',
+        start: false,
+      }));
       setTimerValue(prev => ({...prev, minute: 0, second: 10}));
     }
     setTimerDisplay(() => countDownTimer(timerValue));
@@ -42,7 +55,11 @@ const Timer: FC<TimerProps> = ({menu, onPress, isActived}) => {
   }, [timerIsActived, timerValue]);
 
   const timerHandle = () => {
-    setTimerIsActived(prev => !prev);
+    setTimerIsActived(prev => ({
+      ...prev,
+      buttonText: !prev.start ? 'STOP' : 'START',
+      start: !prev.start,
+    }));
   };
   return (
     <View style={styles.timerContainer}>
@@ -67,7 +84,7 @@ const Timer: FC<TimerProps> = ({menu, onPress, isActived}) => {
             ...styles.buttonStartText,
             color: isActived.color,
           }}
-          text="START"
+          text={timerIsActived.buttonText}
           onPress={timerHandle}
         />
       </View>

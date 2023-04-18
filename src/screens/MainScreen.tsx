@@ -1,11 +1,4 @@
-import React, {
-  useContext,
-  memo,
-  useCallback,
-  useMemo,
-  useEffect,
-  useState,
-} from 'react';
+import React, {useContext, memo, useCallback, useMemo} from 'react';
 import {SafeAreaView, StyleSheet, View} from 'react-native';
 
 import Header from '../components/Header/Header';
@@ -19,16 +12,8 @@ import checkActiveMenu from '../utils/checkActiveMenu';
 
 const MainScreen = () => {
   const {state: timerState, dispatch: timerDispatch} = useContext(TimerContext);
-  const timerMemo = useMemo(() => timerState, [timerState]);
-  const [isActived, setIsActived] = useState<TimerItemType>(
-    {} as TimerItemType,
-  );
-
-  useEffect(() => {
-    const actived = checkActiveMenu(timerMemo);
-    setIsActived(prev => ({...prev, ...actived}));
-  }, [timerMemo]);
-
+  const isActived = checkActiveMenu(timerState);
+  const timerMemo = useMemo(() => timerState.data, [timerState]);
   const menuHandler = useCallback(
     (action: TimerActionType) => {
       timerDispatch(action);
@@ -44,7 +29,7 @@ const MainScreen = () => {
       <SafeAreaView />
       <Header />
       <Timer
-        menu={timerMemo.data}
+        menu={timerMemo}
         onPress={menuHandler}
         isActived={isActived as TimerItemType}
       />
