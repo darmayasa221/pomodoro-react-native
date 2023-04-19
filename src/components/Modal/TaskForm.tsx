@@ -10,9 +10,9 @@ const TaskForm: FC<TaskFormProps> = ({color, onSave, modalOff}) => {
     setInputText(() => text);
   };
   const saveHandler = useCallback(() => {
-    onSave();
+    onSave({type: 'ADD_TASK', payload: {name: inputText}});
     modalOff();
-  }, [onSave, modalOff]);
+  }, [onSave, modalOff, inputText]);
   return (
     <View
       style={{
