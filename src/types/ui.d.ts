@@ -1,8 +1,8 @@
 // ui type component
 import {PropsWithChildren} from 'react';
 
-export type ButtonCostumProps = PropsWithChildren<{
-  onPress?: () => void;
+export type ButtonCostumProps<T> = PropsWithChildren<{
+  onPress?: () => void | T;
   style: {};
 }>;
 export type ButtonPrimaryProps = PropsWithChildren<{
