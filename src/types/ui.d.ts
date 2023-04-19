@@ -1,7 +1,8 @@
 // ui type component
 import {PropsWithChildren} from 'react';
 
-export type ButtonCostumProps = PropsWithChildren<{
+export type ButtonCostumProps<T> = PropsWithChildren<{
+  onPress?: () => void | T;
   style: {};
 }>;
 export type ButtonPrimaryProps = PropsWithChildren<{
@@ -13,5 +14,6 @@ export type ButtonPrimaryProps = PropsWithChildren<{
 }>;
 export type CheckBoxProps = {
   onPress: () => void;
-  isChecked: boolean;
+  isChecked?: boolean;
+  color?: string;
 };

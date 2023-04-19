@@ -1,10 +1,15 @@
 import React, {FC, memo} from 'react';
 import {Pressable, StyleSheet, View} from 'react-native';
 import {ButtonCostumProps} from '../../types/ui';
+import {TypeModal} from '../../types/modal';
 
-const ButtonCostum: FC<ButtonCostumProps> = ({children, style}) => {
+const ButtonCostum: FC<ButtonCostumProps<TypeModal>> = ({
+  children,
+  style,
+  onPress,
+}) => {
   return (
-    <Pressable>
+    <Pressable onPress={onPress}>
       <View style={[styles.buttonCostum, style]}>{children}</View>
     </Pressable>
   );

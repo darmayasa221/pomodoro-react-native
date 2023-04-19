@@ -4,7 +4,9 @@ export type ActionType =
   | 'POMODORO'
   | 'SHORT_BREAK'
   | 'LONG_BREAK'
-  | 'START_TIMER';
+  | 'START_TIMER'
+  | 'INCREASE_TIMER'
+  | 'DECREASE_TIMER';
 export type TimeType = {
   minute: number;
   second: number;
@@ -15,6 +17,7 @@ export type TimerItemType = {
   color?: string;
   type?: ActionType;
   time?: TimeType;
+  defaultTime?: TimeType;
 };
 export type TimerInitialStateType = {
   data: Array<TimerItemType>;

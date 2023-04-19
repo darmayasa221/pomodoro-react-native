@@ -18,6 +18,10 @@ const timerInitialState: TimerInitialStateType = {
         minute: 15,
         second: 0,
       },
+      defaultTime: {
+        minute: 15,
+        second: 0,
+      },
     },
     {
       name: 'shortBreak',
@@ -28,6 +32,10 @@ const timerInitialState: TimerInitialStateType = {
         minute: 0,
         second: 15,
       },
+      defaultTime: {
+        minute: 15,
+        second: 0,
+      },
     },
     {
       name: 'longBreak',
@@ -36,6 +44,10 @@ const timerInitialState: TimerInitialStateType = {
       type: 'LONG_BREAK',
       time: {
         minute: 10,
+        second: 0,
+      },
+      defaultTime: {
+        minute: 15,
         second: 0,
       },
     },

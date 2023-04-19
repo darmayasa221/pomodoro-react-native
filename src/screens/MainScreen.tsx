@@ -1,5 +1,5 @@
-import React, {useContext, memo, useCallback, useMemo} from 'react';
-import {SafeAreaView, StyleSheet, View} from 'react-native';
+import React, {useContext, memo, useCallback, useMemo, useState} from 'react';
+import {SafeAreaView, StyleSheet, View, Modal} from 'react-native';
 
 import Header from '../components/Header/Header';
 import Timer from '../components/Timer/Timer';
@@ -9,9 +9,19 @@ import TaskFooter from '../components/Tasks/TaskFooter';
 import TimerContext from '../store/Timer/context';
 import {TimerActionType, TimerItemType} from '../types/store/timer/timer';
 import checkActiveMenu from '../utils/checkActiveMenu';
+import SettingTimer from '../components/Modal/SettingTimer';
+import {IsModalActivedType, TypeModal} from '../types/modal';
+import TaskForm from '../components/Modal/TaskForm';
+import TaskContext from '../store/Task/context';
 
 const MainScreen = () => {
+  const [isModalActived, setIsModalActived] = useState<IsModalActivedType>({
+    isActived: false,
+    type: '',
+  });
   const {state: timerState, dispatch: timerDispatch} = useContext(TimerContext);
+  const {state: taskState, dispatch: taskDispatch} = useContext(TaskContext);
+  const taskMemo = useMemo(() => taskState, [taskState]);
   const isActivedMemo = useMemo(
     () => checkActiveMenu(timerState),
     [timerState],
@@ -23,6 +33,20 @@ const MainScreen = () => {
     },
     [timerDispatch],
   );
+  const turnOnModalHandler = useCallback((type: TypeModal) => {
+    setIsModalActived(prev => ({
+      ...prev,
+      isActived: true,
+      type: type,
+    }));
+  }, []);
+  const turnOffModalHandler = useCallback(() => {
+    setIsModalActived(prev => ({
+      ...prev,
+      isActived: false,
+      type: '',
+    }));
+  }, []);
   return (
     <View
       style={{
@@ -30,20 +54,47 @@ const MainScreen = () => {
         backgroundColor: isActivedMemo?.color,
       }}>
       <SafeAreaView />
-      <Header />
+      {isModalActived.isActived && (
+        <Modal visible={isModalActived.isActived} animationType="slide">
+          {isModalActived.type === 'TIMER' && (
+            <SettingTimer
+              onCount={timerDispatch}
+              onSave={turnOffModalHandler}
+              color={isActivedMemo?.color as string}
+              data={timerMemo}
+            />
+          )}
+          {isModalActived.type === 'TASK' && (
+            <TaskForm
+              color={isActivedMemo?.color as string}
+              onSave={taskDispatch}
+              modalOff={turnOffModalHandler}
+            />
+          )}
+        </Modal>
+      )}
+      <Header settingOnPress={turnOnModalHandler} />
       <Timer
         menu={timerMemo}
         onPress={menuHandler}
         isActived={isActivedMemo as TimerItemType}
       />
-      <OutputCount />
-      <Tasks style={{}} />
+      <OutputCount
+        isSelected={taskMemo.selected.isSelected}
+        name={taskMemo.selected.name}
+      />
+      <Tasks
+        tasks={taskMemo.data}
+        color={isActivedMemo?.color}
+        onCheck={taskDispatch}
+        selected={taskMemo.selected}
+      />
       <View
         style={{
           ...styles.footer,
           backgroundColor: isActivedMemo?.color,
         }}>
-        <TaskFooter style={{}} />
+        <TaskFooter addTaskOnPress={turnOnModalHandler} />
       </View>
     </View>
   );
