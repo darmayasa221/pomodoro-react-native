@@ -79,8 +79,16 @@ const MainScreen = () => {
         onPress={menuHandler}
         isActived={isActivedMemo as TimerItemType}
       />
-      <OutputCount />
-      <Tasks tasks={taskMemo.data} />
+      <OutputCount
+        isSelected={taskMemo.selected.isSelected}
+        name={taskMemo.selected.name}
+      />
+      <Tasks
+        tasks={taskMemo.data}
+        color={isActivedMemo?.color}
+        onCheck={taskDispatch}
+        selected={taskMemo.selected}
+      />
       <View
         style={{
           ...styles.footer,
