@@ -3,12 +3,15 @@ import {Pressable, StyleSheet, View} from 'react-native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import {CheckBoxProps} from '../../types/ui';
 
-const CheckBox: FC<CheckBoxProps> = ({onPress, isChecked}) => {
-  console.log('check box');
+const CheckBox: FC<CheckBoxProps> = ({onPress, isChecked, color}) => {
   return (
     <Pressable onPress={onPress}>
       <View style={styles.checkBox}>
-        <FontAwesomeIcon name="check-circle" color={'grey'} size={30} />
+        <FontAwesomeIcon
+          name="check-circle"
+          color={!isChecked ? color : 'grey'}
+          size={30}
+        />
       </View>
     </Pressable>
   );
