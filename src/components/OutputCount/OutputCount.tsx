@@ -1,11 +1,14 @@
-import React, {memo} from 'react';
+import React, {FC, memo} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import {OutputCountProps} from '../../types/outpoutCount';
 
-const OutputCount = () => {
+const OutputCount: FC<OutputCountProps> = ({isSelected, name}) => {
   return (
     <View style={styles.outputCountWrapper}>
       <Text style={styles.textCount}>#0</Text>
-      <Text style={styles.textTitle}>Time To focus</Text>
+      <Text style={styles.textTitle}>
+        {isSelected ? `${name}` : 'Time To focus'}
+      </Text>
     </View>
   );
 };
