@@ -1,6 +1,7 @@
 import {
   TaskActionType,
   TaskInitialStateType,
+  TaskItemType,
 } from '../../types/store/task/task';
 
 const taskReducer = (
@@ -8,7 +9,13 @@ const taskReducer = (
   action: TaskActionType,
 ): TaskInitialStateType => {
   if (action.type === 'ADD_TASK') {
-    return state;
+    const newState = {...state};
+    const task: TaskItemType = {
+      activedTask: false,
+      name: action.payload.name,
+    };
+    newState.data.push(task);
+    return newState;
   }
   if (action.type === 'ACTIVED_TASK') {
     return state;
