@@ -4,23 +4,16 @@ import Task from './Task';
 import TasksHeader from './TasksHeader';
 import {TasksProps} from '../../types/tasks';
 
-const Tasks: FC<TasksProps> = ({style}) => {
+const Tasks: FC<TasksProps> = ({tasks}) => {
   console.log('tasks component');
   return (
     <View>
       <TasksHeader />
       <ScrollView style={styles.taskListContainer}>
         <View style={styles.taskListWrapper}>
-          <Task />
-          {/* <Task />
-          <Task />
-          <Task />
-          <Task />
-          <Task />
-          <Task />
-          <Task />
-          <Task />
-          <Task /> */}
+          {tasks.map(({activedTask, name}) => (
+            <Task key={name} activedTask={activedTask} name={name} />
+          ))}
         </View>
       </ScrollView>
     </View>
