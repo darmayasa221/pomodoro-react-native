@@ -1,4 +1,4 @@
-import React, {memo, FC, useState, useEffect} from 'react';
+import React, {memo, FC, useState, useEffect, useCallback} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import ButtonPrimary from '../UI/ButtonPrimary';
 import {TimerProps} from '../../types/timer';
@@ -84,14 +84,14 @@ const Timer: FC<TimerProps> = ({menu, onPress, isActived}) => {
     };
   }, [timerIsActived, isActived.time, isActived.name, onPress]);
 
-  const timerHandle = () => {
+  const timerHandle = useCallback(() => {
     BackgroundTimer.start();
     setTimerIsActived(prev => ({
       ...prev,
       buttonText: !prev.start ? 'STOP' : 'START',
       start: !prev.start,
     }));
-  };
+  }, []);
   return (
     <View style={styles.timerContainer}>
       <View style={styles.timerHeader}>
