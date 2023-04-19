@@ -5,7 +5,12 @@ import {SettingTimerProps} from '../../types/modal';
 import ButtonCostum from '../UI/ButtonCostum';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
-const SettingTimer: FC<SettingTimerProps> = ({color, data}) => {
+const SettingTimer: FC<SettingTimerProps> = ({
+  color,
+  data,
+  onCount,
+  onSave,
+}) => {
   return (
     <View
       style={{
@@ -13,11 +18,16 @@ const SettingTimer: FC<SettingTimerProps> = ({color, data}) => {
         backgroundColor: color,
       }}>
       <View style={styles.wrapperItem}>
-        {data.map(({name, time}) => (
-          <SettingTimerItem key={name} name={name} time={time} />
+        {data.map(({name, defaultTime}) => (
+          <SettingTimerItem
+            onCount={onCount}
+            key={name}
+            name={name}
+            defaultTime={defaultTime}
+          />
         ))}
       </View>
-      <ButtonCostum style={styles.button}>
+      <ButtonCostum onPress={onSave} style={styles.button}>
         <FontAwesomeIcon name="plus-circle" size={20} color={'white'} />
         <Text style={styles.text}>Add Time</Text>
       </ButtonCostum>
