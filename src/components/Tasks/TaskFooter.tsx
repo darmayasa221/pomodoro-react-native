@@ -4,10 +4,14 @@ import ButtonCostum from '../UI/ButtonCostum';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import {TaskFooterProps} from '../../types/tasks';
 
-const TaskFooter: FC<TaskFooterProps> = ({style}) => {
+const TaskFooter: FC<TaskFooterProps> = ({addTaskOnPress}) => {
   return (
-    <View style={[styles.taskFooterWrapper, style]}>
-      <ButtonCostum style={styles.button}>
+    <View style={styles.taskFooterWrapper}>
+      <ButtonCostum
+        onPress={() => {
+          addTaskOnPress('TASK');
+        }}
+        style={styles.button}>
         <FontAwesomeIcon name="plus-circle" size={20} color={'white'} />
         <Text style={styles.text}>Add Task</Text>
       </ButtonCostum>
