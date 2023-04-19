@@ -2,6 +2,7 @@
 import {PropsWithChildren} from 'react';
 
 export type ButtonCostumProps = PropsWithChildren<{
+  onPress?: () => void;
   style: {};
 }>;
 export type ButtonPrimaryProps = PropsWithChildren<{
