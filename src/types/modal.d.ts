@@ -5,3 +5,5 @@ export type SettingTimerProps = {
   color: string;
   data: Array<TimerItemType>;
 };
+
+export type SettingTimerItemProps = Pick<TimerItemType, 'name' | 'time'>;
