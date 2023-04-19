@@ -1,17 +1,35 @@
-import React, {FC} from 'react';
+import React, {FC, useCallback} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import ButtonPrimary from '../UI/ButtonPrimary';
 import {SettingTimerItemProps} from '../../types/modal';
 
-const SettingTimerItem: FC<SettingTimerItemProps> = ({name, time}) => {
+const SettingTimerItem: FC<SettingTimerItemProps> = ({
+  name,
+  defaultTime,
+  onCount,
+}) => {
+  const decreaseTimeHandler = useCallback(() => {
+    onCount({type: 'DECREASE_TIMER', payload: {name}});
+  }, [onCount, name]);
+  const increaseTimeHandler = useCallback(() => {
+    onCount({type: 'INCREASE_TIMER', payload: {name}});
+  }, [onCount, name]);
   return (
     <View style={styles.settingTimerItemContainer}>
       <Text style={styles.textTitle}>{name}</Text>
       <View style={styles.settingTimerItemWrapper}>
-        <Text style={styles.textNumber}>Minute: {time?.minute}</Text>
+        <Text style={styles.textNumber}>Minute: {defaultTime?.minute}</Text>
         <View style={styles.buttonWrapper}>
-          <ButtonPrimary styleView={styles.button} text="+" />
-          <ButtonPrimary styleView={styles.button} text="-" />
+          <ButtonPrimary
+            onPress={increaseTimeHandler}
+            styleView={styles.button}
+            text="+"
+          />
+          <ButtonPrimary
+            onPress={decreaseTimeHandler}
+            styleView={styles.button}
+            text="-"
+          />
         </View>
       </View>
     </View>
