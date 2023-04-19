@@ -1,7 +1,7 @@
 export type TaskContextProviderType = PropsWithChildren;
 export type TaskItemType = {
-  name: string;
-  activedTask: boolean;
+  name?: string;
+  activedTask?: boolean;
 };
 export type TaskInitialStateType = {
   data: Array<TaskItemType>;
