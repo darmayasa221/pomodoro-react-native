@@ -12,6 +12,7 @@ import checkActiveMenu from '../utils/checkActiveMenu';
 import SettingTimer from '../components/Modal/SettingTimer';
 import {IsModalActivedType, TypeModal} from '../types/modal';
 import TaskForm from '../components/Modal/TaskForm';
+import TaskContext from '../store/Task/context';
 
 const MainScreen = () => {
   const [isModalActived, setIsModalActived] = useState<IsModalActivedType>({
@@ -19,6 +20,8 @@ const MainScreen = () => {
     type: '',
   });
   const {state: timerState, dispatch: timerDispatch} = useContext(TimerContext);
+  const {state: taskState, dispatch: taskDispatch} = useContext(TaskContext);
+  const taskMemo = useMemo(() => taskState, [taskState]);
   const isActivedMemo = useMemo(
     () => checkActiveMenu(timerState),
     [timerState],
@@ -64,7 +67,7 @@ const MainScreen = () => {
           {isModalActived.type === 'TASK' && (
             <TaskForm
               color={isActivedMemo?.color as string}
-              onSave={() => {}}
+              onSave={taskDispatch}
               modalOff={turnOffModalHandler}
             />
           )}
@@ -77,7 +80,7 @@ const MainScreen = () => {
         isActived={isActivedMemo as TimerItemType}
       />
       <OutputCount />
-      <Tasks style={{}} />
+      <Tasks tasks={taskMemo.data} />
       <View
         style={{
           ...styles.footer,
@@ -103,11 +106,3 @@ const styles = StyleSheet.create({
     paddingTop: 5,
   },
 });
-
-// {isModalActived.type === 'TIMER' && (
-//   <SettingTimer
-//     onCount={timerDispatch}
-//     onSave={turnOffModalHandler}
-//     color={isActivedMemo?.color as string}
-//     data={timerMemo}
-//   />)}
