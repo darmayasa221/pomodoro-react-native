@@ -13,7 +13,11 @@ const Header: FC<HeaderProps> = ({settingOnPress}) => {
         <ButtonCostum style={styles.button}>
           <FontAwsome5Icon name="user-circle" size={20} color={'white'} />
         </ButtonCostum>
-        <ButtonCostum onPress={settingOnPress} style={styles.button}>
+        <ButtonCostum
+          onPress={() => {
+            settingOnPress('TIMER');
+          }}
+          style={styles.button}>
           <FontistoIcon name="player-settings" size={20} color={'white'} />
         </ButtonCostum>
         <ButtonCostum style={styles.button}>
