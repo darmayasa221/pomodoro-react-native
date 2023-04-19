@@ -14,5 +14,6 @@ export type ButtonPrimaryProps = PropsWithChildren<{
 }>;
 export type CheckBoxProps = {
   onPress: () => void;
-  isChecked: boolean;
+  isChecked?: boolean;
+  color?: string;
 };
