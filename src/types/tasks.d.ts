@@ -1,4 +1,5 @@
 import {TypeModal} from './modal';
+import {TaskItemType} from './store/task/task';
 
 // tasks type component
 export type TaskFooterProps = {
@@ -6,5 +7,9 @@ export type TaskFooterProps = {
 };
 
 export type TasksProps = {
-  style: {};
+  tasks: Array<TaskItemType>;
+};
+
+export type TaskProps = {
+  task: TaskItemType;
 };
