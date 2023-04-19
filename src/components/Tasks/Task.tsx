@@ -1,10 +1,11 @@
-import React, {useCallback, useState} from 'react';
+import React, {FC, useCallback, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import CheckBox from '../UI/CheckBox';
 import ButtonCostum from '../UI/ButtonCostum';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
+import {TaskItemType} from '../../types/store/task/task';
 
-const Task = () => {
+const Task: FC<TaskItemType> = ({activedTask, name}) => {
   console.log('task components');
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const checkBoxHandler = useCallback(() => {
@@ -15,7 +16,7 @@ const Task = () => {
     <View style={styles.taskWrapper}>
       <View style={styles.leftSide}>
         <CheckBox isChecked={isChecked} onPress={checkBoxHandler} />
-        <Text style={styles.left_description}> my tasks </Text>
+        <Text style={styles.left_description}>{name}</Text>
       </View>
       <View style={styles.rightSide}>
         <View style={styles.rightSide_rightWrapper}>
