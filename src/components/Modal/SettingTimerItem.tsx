@@ -1,13 +1,14 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import ButtonPrimary from '../UI/ButtonPrimary';
+import {SettingTimerItemProps} from '../../types/modal';
 
-const SettingTimerItem = () => {
+const SettingTimerItem: FC<SettingTimerItemProps> = ({name, time}) => {
   return (
     <View style={styles.settingTimerItemContainer}>
-      <Text style={styles.textTitle}>ABC</Text>
+      <Text style={styles.textTitle}>{name}</Text>
       <View style={styles.settingTimerItemWrapper}>
-        <Text style={styles.textNumber}>Minute: 1</Text>
+        <Text style={styles.textNumber}>Minute: {time?.minute}</Text>
         <View style={styles.buttonWrapper}>
           <ButtonPrimary styleView={styles.button} text="+" />
           <ButtonPrimary styleView={styles.button} text="-" />
@@ -31,13 +32,12 @@ const styles = StyleSheet.create({
   textTitle: {
     color: 'white',
     fontSize: 22,
-    fontWeigh: 800,
-    alignSelf: 'center',
+    fontWeight: '800',
   },
   textNumber: {
     color: 'white',
     fontSize: 22,
-    fontWeigh: 800,
+    fontWeight: '700',
     backgroundColor: 'rgba(0, 0, 0, 0.15)',
     padding: 5,
     borderRadius: 5,
