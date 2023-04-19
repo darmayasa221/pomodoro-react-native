@@ -1,6 +1,8 @@
+import {TypeModal} from './modal';
+
 // tasks type component
 export type TaskFooterProps = {
-  style: {};
+  addTaskOnPress: (type: TypeModal) => void;
 };
 
 export type TasksProps = {
