@@ -1,4 +1,7 @@
 // header type component
+
+import {TypeModal} from './modal';
+
 export type HeaderProps = {
-  settingOnPress: () => void;
+  settingOnPress: (type: TypeModal) => void;
 };
