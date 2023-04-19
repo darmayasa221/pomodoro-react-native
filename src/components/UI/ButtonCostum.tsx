@@ -2,9 +2,9 @@ import React, {FC, memo} from 'react';
 import {Pressable, StyleSheet, View} from 'react-native';
 import {ButtonCostumProps} from '../../types/ui';
 
-const ButtonCostum: FC<ButtonCostumProps> = ({children, style}) => {
+const ButtonCostum: FC<ButtonCostumProps> = ({children, style, onPress}) => {
   return (
-    <Pressable>
+    <Pressable onPress={onPress}>
       <View style={[styles.buttonCostum, style]}>{children}</View>
     </Pressable>
   );

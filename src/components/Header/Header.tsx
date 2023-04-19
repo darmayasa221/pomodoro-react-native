@@ -1,10 +1,11 @@
-import React, {memo} from 'react';
+import React, {memo, FC} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import ButtonCostum from '../UI/ButtonCostum';
 import FontAwsome5Icon from 'react-native-vector-icons/FontAwesome5';
 import FontistoIcon from 'react-native-vector-icons/Fontisto';
+import {HeaderProps} from '../../types/header';
 
-const Header = () => {
+const Header: FC<HeaderProps> = ({settingOnPress}) => {
   return (
     <View style={styles.headerContainer}>
       <Text style={styles.headerText}>Pomofocus</Text>
@@ -12,7 +13,7 @@ const Header = () => {
         <ButtonCostum style={styles.button}>
           <FontAwsome5Icon name="user-circle" size={20} color={'white'} />
         </ButtonCostum>
-        <ButtonCostum style={styles.button}>
+        <ButtonCostum onPress={settingOnPress} style={styles.button}>
           <FontistoIcon name="player-settings" size={20} color={'white'} />
         </ButtonCostum>
         <ButtonCostum style={styles.button}>
