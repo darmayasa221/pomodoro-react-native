@@ -1,6 +1,11 @@
 import {Dispatch} from 'react';
 import {TimerActionType, TimerItemType} from './store/timer/timer';
 // modal type component
+export type TypeModal = 'TIMER' | 'TASK' | string;
+export type IsModalActivedType = {
+  type: TypeModal;
+  isActived: boolean;
+};
 export type SettingTimerProps = {
   color: string;
   data: Array<TimerItemType>;
@@ -13,3 +18,9 @@ export type SettingTimerItemProps = Pick<
   'name' | 'defaultTime'
 > &
   Pick<SettingTimerProps, 'onCount'>;
+
+export type TaskFormProps = {
+  color: string;
+  onSave: () => void;
+  modalOff: () => void;
+};
