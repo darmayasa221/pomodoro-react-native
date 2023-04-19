@@ -1,33 +1,51 @@
-import React, {FC, useCallback, useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import React, {FC, useCallback} from 'react';
+import {Pressable, StyleSheet, Text, View} from 'react-native';
 import CheckBox from '../UI/CheckBox';
 import ButtonCostum from '../UI/ButtonCostum';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
-import {TaskItemType} from '../../types/store/task/task';
+import {TaskProps} from '../../types/tasks';
 
-const Task: FC<TaskItemType> = ({activedTask, name}) => {
-  console.log('task components');
-  const [isChecked, setIsChecked] = useState<boolean>(false);
+const Task: FC<TaskProps> = ({
+  task: {activedTask, name},
+  color,
+  onCheck,
+  taskIndex,
+  isSelected,
+}) => {
   const checkBoxHandler = useCallback(() => {
-    setIsChecked(prev => !prev);
-  }, []);
-
+    onCheck({type: 'ACTIVED_TASK', payload: {index: taskIndex}});
+  }, [onCheck, taskIndex]);
+  const selectTaskHandler = () => {
+    onCheck({type: 'SELECT_TASK', payload: {activedTask, name}});
+  };
   return (
-    <View style={styles.taskWrapper}>
-      <View style={styles.leftSide}>
-        <CheckBox isChecked={isChecked} onPress={checkBoxHandler} />
-        <Text style={styles.left_description}>{name}</Text>
-      </View>
-      <View style={styles.rightSide}>
-        <View style={styles.rightSide_rightWrapper}>
-          <Text style={styles.right_result}>0</Text>
-          <Text style={styles.right_target}> / 0</Text>
+    <Pressable onPress={selectTaskHandler}>
+      <View style={[styles.taskWrapper, isSelected && styles.taskIsSelected]}>
+        <View style={styles.leftSide}>
+          <CheckBox
+            isChecked={activedTask}
+            color={color}
+            onPress={checkBoxHandler}
+          />
+          <Text
+            style={[
+              styles.left_description,
+              !activedTask && styles.taskIsNonActived,
+            ]}>
+            {name}
+          </Text>
         </View>
-        <ButtonCostum style={styles.button}>
-          <EntypoIcon name="dots-three-vertical" size={20} color={'grey'} />
-        </ButtonCostum>
+        <View style={styles.rightSide}>
+          <View style={styles.rightSide_rightWrapper}>
+            <Text style={styles.right_result}>0</Text>
+            <Text style={styles.right_target}> / 0</Text>
+          </View>
+          <ButtonCostum style={styles.button}>
+            <EntypoIcon name="dots-three-vertical" size={20} color={'grey'} />
+          </ButtonCostum>
+        </View>
       </View>
-    </View>
+    </Pressable>
   );
 };
 
@@ -42,6 +60,10 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: 'white',
   },
+  taskIsSelected: {
+    borderLeftColor: 'black',
+    borderLeftWidth: 10,
+  },
   leftSide: {
     flexDirection: 'row',
     columnGap: 5,
@@ -52,6 +74,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: 'rgb(85, 85, 85)',
   },
+
   // right side style
   rightSide: {
     flexDirection: 'row',
@@ -79,7 +102,7 @@ const styles = StyleSheet.create({
     borderColor: 'grey',
     borderWidth: 0.5,
   },
-  // taskText: {
-  //   textDecorationLine: 'line-through',
-  // },
+  taskIsNonActived: {
+    textDecorationLine: 'line-through',
+  },
 });
