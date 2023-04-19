@@ -1,10 +1,17 @@
 import React, {FC, useMemo, useReducer} from 'react';
-import {TaskContextProviderType} from '../../types/store/task/task';
+import {
+  TaskContextProviderType,
+  TaskInitialStateType,
+} from '../../types/store/task/task';
 import TaskContext from './context';
 import taskReducer from './reducer';
+const taskInitialState: TaskInitialStateType = {
+  data: [],
+  selected: {},
+};
 
 const TaskContextProvider: FC<TaskContextProviderType> = ({children}) => {
-  const [state, dispatch] = useReducer(taskReducer, {data: []});
+  const [state, dispatch] = useReducer(taskReducer, taskInitialState);
   const stateMemo = useMemo(
     () => ({
       state,
