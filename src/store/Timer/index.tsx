@@ -33,8 +33,8 @@ const timerInitialState: TimerInitialStateType = {
         second: 15,
       },
       defaultTime: {
-        minute: 15,
-        second: 0,
+        minute: 0,
+        second: 15,
       },
     },
     {
@@ -47,7 +47,7 @@ const timerInitialState: TimerInitialStateType = {
         second: 0,
       },
       defaultTime: {
-        minute: 15,
+        minute: 10,
         second: 0,
       },
     },
