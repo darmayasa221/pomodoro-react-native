@@ -8,7 +8,6 @@ import Tasks from '../components/Tasks/Tasks';
 import TaskFooter from '../components/Tasks/TaskFooter';
 import TimerContext from '../store/Timer/context';
 import {TimerActionType, TimerItemType} from '../types/store/timer/timer';
-import checkActiveMenu from '../utils/checkActiveMenu';
 import SettingTimer from '../components/Modal/SettingTimer';
 import {IsModalActivedType, TypeModal} from '../types/modal';
 import TaskForm from '../components/Modal/TaskForm';
@@ -23,7 +22,7 @@ const MainScreen = () => {
   const {state: taskState, dispatch: taskDispatch} = useContext(TaskContext);
   const taskMemo = useMemo(() => taskState, [taskState]);
   const isActivedMemo = useMemo(
-    () => checkActiveMenu(timerState),
+    () => timerState.data.find(({activeMenu}) => activeMenu === true),
     [timerState],
   );
   const timerMemo = useMemo(() => timerState.data, [timerState]);
