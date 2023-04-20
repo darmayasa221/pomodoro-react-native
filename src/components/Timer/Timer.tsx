@@ -38,6 +38,7 @@ const Timer: FC<TimerProps> = ({menu, onPress, isActived}) => {
       seconds: isActived.time?.second,
     });
     if (timerIsActived.start) {
+      console.log('still runing');
       intervalTimer = setInterval(() => {
         if (!minute && !second) {
           clearInterval(intervalTimer);

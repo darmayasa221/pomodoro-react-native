@@ -1,4 +1,4 @@
-import React, {FC, memo, useCallback} from 'react';
+import React, {FC, useCallback} from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import CheckBox from '../UI/CheckBox';
 import ButtonCostum from '../UI/ButtonCostum';
@@ -49,7 +49,7 @@ const Task: FC<TaskProps> = ({
   );
 };
 
-export default memo(Task);
+export default Task;
 
 const styles = StyleSheet.create({
   taskWrapper: {

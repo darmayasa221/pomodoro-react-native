@@ -1,4 +1,4 @@
-import React, {FC, memo, useMemo} from 'react';
+import React, {FC} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import SettingTimerItem from './SettingTimerItem';
 import {SettingTimerProps} from '../../types/modal';
@@ -11,7 +11,6 @@ const SettingTimer: FC<SettingTimerProps> = ({
   onCount,
   onSave,
 }) => {
-  const dataMemo = useMemo(() => data, [data]);
   return (
     <View
       style={{
@@ -19,7 +18,7 @@ const SettingTimer: FC<SettingTimerProps> = ({
         backgroundColor: color,
       }}>
       <View style={styles.wrapperItem}>
-        {dataMemo.map(({name, defaultTime}) => (
+        {data.map(({name, defaultTime}) => (
           <SettingTimerItem
             onCount={onCount}
             key={name}
@@ -36,7 +35,7 @@ const SettingTimer: FC<SettingTimerProps> = ({
   );
 };
 
-export default memo(SettingTimer);
+export default SettingTimer;
 
 const styles = StyleSheet.create({
   settingTimerContainer: {
