@@ -8,6 +8,7 @@ const ButtonPrimary: FC<ButtonPrimaryProps> = ({
   styleView,
   styleText,
 }) => {
+  console.log('BTN PRM');
   return (
     <Pressable onPress={onPress}>
       <View style={[styles.buttonContainer, styleView]}>

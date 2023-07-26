@@ -1,4 +1,4 @@
-import React, {FC, useCallback} from 'react';
+import React, {FC, memo, useCallback} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import ButtonPrimary from '../UI/ButtonPrimary';
 import {SettingTimerItemProps} from '../../types/modal';
@@ -8,6 +8,7 @@ const SettingTimerItem: FC<SettingTimerItemProps> = ({
   defaultTime,
   onCount,
 }) => {
+  console.log('SETTING ITEM TIMER');
   const decreaseTimeHandler = useCallback(() => {
     onCount({type: 'DECREASE_TIMER', payload: {name}});
   }, [onCount, name]);
@@ -36,7 +37,7 @@ const SettingTimerItem: FC<SettingTimerItemProps> = ({
   );
 };
 
-export default SettingTimerItem;
+export default memo(SettingTimerItem);
 
 const styles = StyleSheet.create({
   settingTimerItemContainer: {

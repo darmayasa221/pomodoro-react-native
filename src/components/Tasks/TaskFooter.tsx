@@ -1,16 +1,15 @@
-import React, {FC} from 'react';
+import React, {FC, memo} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import ButtonCostum from '../UI/ButtonCostum';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import {TaskFooterProps} from '../../types/tasks';
 
 const TaskFooter: FC<TaskFooterProps> = ({addTaskOnPress}) => {
+  console.log('TASK FOOTER COMPONENT');
   return (
     <View style={styles.taskFooterWrapper}>
       <ButtonCostum
-        onPress={() => {
-          addTaskOnPress('TASK');
-        }}
+        onPress={addTaskOnPress.bind(this, 'TASK')}
         style={styles.button}>
         <FontAwesomeIcon name="plus-circle" size={20} color={'white'} />
         <Text style={styles.text}>Add Task</Text>
@@ -19,7 +18,7 @@ const TaskFooter: FC<TaskFooterProps> = ({addTaskOnPress}) => {
   );
 };
 
-export default TaskFooter;
+export default memo(TaskFooter);
 
 const styles = StyleSheet.create({
   taskFooterWrapper: {

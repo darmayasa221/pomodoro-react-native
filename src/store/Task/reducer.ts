@@ -2,7 +2,6 @@ import {
   TaskActionType,
   TaskInitialStateType,
   TaskItemType,
-  TaskSelectedType,
 } from '../../types/store/task/task';
 
 const taskReducer = (
@@ -14,6 +13,7 @@ const taskReducer = (
     const task: TaskItemType = {
       activedTask: true,
       name: action.payload?.name as string,
+      isSelected: false,
     };
     newState.data.push(task);
     return newState;
@@ -28,13 +28,17 @@ const taskReducer = (
   }
   if (action.type === 'SELECT_TASK') {
     const newState = {...state};
-    const taskSelected: TaskSelectedType = {
-      ...newState.selected,
-      name: action.payload?.name,
-      activedTask: action.payload?.activedTask,
-      isSelected: true,
-    };
-    newState.selected = taskSelected;
+    const selected = newState.data.find(({isSelected}) => isSelected === true);
+    if (selected !== undefined) {
+      const indexSelected = newState.data.findIndex(
+        ({name}) => name === selected?.name,
+      );
+      newState.data[indexSelected].isSelected = false;
+    }
+    const actived = newState.data[action.payload?.index as number].isSelected;
+    newState.data[action.payload?.index as number].isSelected = actived
+      ? false
+      : true;
     return newState;
   }
   return state;

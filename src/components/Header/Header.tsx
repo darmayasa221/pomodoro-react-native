@@ -6,6 +6,7 @@ import FontistoIcon from 'react-native-vector-icons/Fontisto';
 import {HeaderProps} from '../../types/header';
 
 const Header: FC<HeaderProps> = ({settingOnPress}) => {
+  console.log('HEADER COMPONENT');
   return (
     <View style={styles.headerContainer}>
       <Text style={styles.headerText}>Pomofocus</Text>

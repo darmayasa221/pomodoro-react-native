@@ -3,6 +3,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import {OutputCountProps} from '../../types/outpoutCount';
 
 const OutputCount: FC<OutputCountProps> = ({isSelected, name}) => {
+  console.log('OUTPUT COMPONENT');
   return (
     <View style={styles.outputCountWrapper}>
       <Text style={styles.textCount}>#0</Text>

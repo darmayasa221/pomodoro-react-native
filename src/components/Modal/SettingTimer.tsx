@@ -11,6 +11,7 @@ const SettingTimer: FC<SettingTimerProps> = ({
   onCount,
   onSave,
 }) => {
+  console.log('SETTING TIMER COMPONENT');
   return (
     <View
       style={{

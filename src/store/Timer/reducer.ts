@@ -55,20 +55,24 @@ const timerReducer = (
     const item = newState.data.find(
       ({name}) => name === action.payload?.name,
     ) as TimerItemType;
-    const itemIndex = newState.data.findIndex(
-      ({name}) => name === action.payload?.name,
-    );
-    const time: TimeType = {
-      ...item.defaultTime,
-      minute: (item.defaultTime?.minute as number) - 1,
-    } as TimeType;
-    const newItem: TimerItemType = {
-      ...item,
-      defaultTime: time,
-      time,
-    };
-    newState.data[itemIndex] = newItem;
-    return newState;
+    if (item.defaultTime?.minute === 0) {
+      return newState;
+    } else {
+      const itemIndex = newState.data.findIndex(
+        ({name}) => name === action.payload?.name,
+      );
+      const time: TimeType = {
+        ...item.defaultTime,
+        minute: (item.defaultTime?.minute as number) - 1,
+      } as TimeType;
+      const newItem: TimerItemType = {
+        ...item,
+        defaultTime: time,
+        time,
+      };
+      newState.data[itemIndex] = newItem;
+      return newState;
+    }
   }
   if (action.type === 'START_TIMER') {
     const newState = {...state};

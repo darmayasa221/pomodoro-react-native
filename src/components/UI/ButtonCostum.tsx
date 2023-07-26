@@ -8,6 +8,7 @@ const ButtonCostum: FC<ButtonCostumProps<TypeModal>> = ({
   style,
   onPress,
 }) => {
+  console.log('BTN COS');
   return (
     <Pressable onPress={onPress}>
       <View style={[styles.buttonCostum, style]}>{children}</View>

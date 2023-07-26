@@ -55,6 +55,7 @@ const timerInitialState: TimerInitialStateType = {
 };
 
 const TimerContextProvider: FC<TimerContextProviderType> = ({children}) => {
+  console.log('TIMER CONTEX');
   const [state, dispatch] = useReducer(timerReducer, timerInitialState);
   const stateMemo: TimerContextType = useMemo(
     () => ({

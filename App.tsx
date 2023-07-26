@@ -4,14 +4,14 @@ import TimerContextProvider from './src/store/Timer';
 import notifee from '@notifee/react-native';
 import TaskContextProvider from './src/store/Task';
 const App = () => {
+  console.log('RUNING APP');
   useEffect(() => {
     (async () => {
       // get permission notification on ios
       await notifee.requestPermission();
       // end
     })();
-  });
-  console.log('app');
+  }, []);
   return (
     <TimerContextProvider>
       <TaskContextProvider>

@@ -7,10 +7,10 @@ import TaskContext from './context';
 import taskReducer from './reducer';
 const taskInitialState: TaskInitialStateType = {
   data: [],
-  selected: {},
 };
 
 const TaskContextProvider: FC<TaskContextProviderType> = ({children}) => {
+  console.log('TASK CONTEX');
   const [state, dispatch] = useReducer(taskReducer, taskInitialState);
   const stateMemo = useMemo(
     () => ({

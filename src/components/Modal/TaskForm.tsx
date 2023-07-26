@@ -3,13 +3,20 @@ import {StyleSheet, Text, TextInput, View} from 'react-native';
 import ButtonCostum from '../UI/ButtonCostum';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import {TaskFormProps} from '../../types/modal';
+import notifee from '@notifee/react-native';
 
 const TaskForm: FC<TaskFormProps> = ({color, onSave, modalOff}) => {
+  console.log('TASK FORM COMPONENT');
   const [inputText, setInputText] = useState<string>('');
   const onChange = (text: string) => {
     setInputText(() => text);
   };
   const saveHandler = useCallback(() => {
+    console.log('save handler');
+    notifee.displayNotification({
+      title: `${inputText} `,
+      body: 'successfully added task',
+    });
     onSave({type: 'ADD_TASK', payload: {name: inputText}});
     modalOff();
   }, [onSave, modalOff, inputText]);

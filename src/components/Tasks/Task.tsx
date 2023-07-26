@@ -1,38 +1,37 @@
-import React, {FC, useCallback} from 'react';
+import React, {FC, memo, useCallback} from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import CheckBox from '../UI/CheckBox';
 import ButtonCostum from '../UI/ButtonCostum';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import {TaskProps} from '../../types/tasks';
 
-const Task: FC<TaskProps> = ({
-  task: {activedTask, name},
-  color,
-  onCheck,
-  taskIndex,
-  isSelected,
-}) => {
+const Task: FC<TaskProps> = ({task, onCheck, taskIndex, color}) => {
+  console.log('TASK COMPONENT');
   const checkBoxHandler = useCallback(() => {
     onCheck({type: 'ACTIVED_TASK', payload: {index: taskIndex}});
   }, [onCheck, taskIndex]);
   const selectTaskHandler = () => {
-    onCheck({type: 'SELECT_TASK', payload: {activedTask, name}});
+    onCheck({
+      type: 'SELECT_TASK',
+      payload: {index: taskIndex},
+    });
   };
   return (
     <Pressable onPress={selectTaskHandler}>
-      <View style={[styles.taskWrapper, isSelected && styles.taskIsSelected]}>
+      <View
+        style={[styles.taskWrapper, task.isSelected && styles.taskIsSelected]}>
         <View style={styles.leftSide}>
           <CheckBox
-            isChecked={activedTask}
+            isChecked={task.activedTask}
             color={color}
             onPress={checkBoxHandler}
           />
           <Text
             style={[
               styles.left_description,
-              !activedTask && styles.taskIsNonActived,
+              !task.activedTask && styles.taskIsNonActived,
             ]}>
-            {name}
+            {task.name}
           </Text>
         </View>
         <View style={styles.rightSide}>

@@ -2,8 +2,8 @@ import {Dispatch} from 'react';
 import {TypeModal} from './modal';
 import {
   TaskActionType,
+  TaskInitialStateType,
   TaskItemType,
-  TaskSelectedType,
 } from './store/task/task';
 
 // tasks type component
@@ -12,10 +12,9 @@ export type TaskFooterProps = {
 };
 
 export type TasksProps = {
-  tasks: Array<TaskItemType>;
+  tasks: TaskInitialStateType;
   color?: string;
   onCheck: Dispatch<TaskActionType>;
-  selected: TaskSelectedType;
 };
 
 export type TaskProps = {

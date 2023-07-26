@@ -8,25 +8,40 @@ import Tasks from '../components/Tasks/Tasks';
 import TaskFooter from '../components/Tasks/TaskFooter';
 import TimerContext from '../store/Timer/context';
 import {TimerActionType, TimerItemType} from '../types/store/timer/timer';
-import checkActiveMenu from '../utils/checkActiveMenu';
 import SettingTimer from '../components/Modal/SettingTimer';
 import {IsModalActivedType, TypeModal} from '../types/modal';
 import TaskForm from '../components/Modal/TaskForm';
 import TaskContext from '../store/Task/context';
 
 const MainScreen = () => {
+  console.log('MAINCREEN');
   const [isModalActived, setIsModalActived] = useState<IsModalActivedType>({
     isActived: false,
     type: '',
   });
+  // get state from use context
   const {state: timerState, dispatch: timerDispatch} = useContext(TimerContext);
   const {state: taskState, dispatch: taskDispatch} = useContext(TaskContext);
-  const taskMemo = useMemo(() => taskState, [taskState]);
-  const isActivedMemo = useMemo(
-    () => checkActiveMenu(timerState),
-    [timerState],
-  );
-  const timerMemo = useMemo(() => timerState.data, [timerState]);
+  // end get state from use context
+  // memoize state to ensure when component render the state will crate when state change,
+  const timerMemo = useMemo(() => {
+    console.log('TIMER MEMO');
+    return timerState.data;
+  }, [timerState]);
+  const taskMemo = useMemo(() => {
+    console.log('TASK MEMO');
+    return taskState;
+  }, [taskState]);
+  const isActivedMemo = useMemo(() => {
+    console.log('IS ACTIVED MEMO');
+    return timerState.data.find(({activeMenu}) => activeMenu === true);
+  }, [timerState]);
+  const isTaskSelectedMemo = useMemo(() => {
+    console.log('IS TASK SELECTEDS');
+    return taskState.data.find(({isSelected}) => isSelected === true);
+  }, [taskState]);
+  // end memoize
+  // save the function at same memory to ensure this function not recreate again when component execute for state change
   const menuHandler = useCallback(
     (action: TimerActionType) => {
       timerDispatch(action);
@@ -80,14 +95,13 @@ const MainScreen = () => {
         isActived={isActivedMemo as TimerItemType}
       />
       <OutputCount
-        isSelected={taskMemo.selected.isSelected}
-        name={taskMemo.selected.name}
+        isSelected={isTaskSelectedMemo?.isSelected}
+        name={isTaskSelectedMemo?.name}
       />
       <Tasks
-        tasks={taskMemo.data}
+        tasks={taskMemo}
         color={isActivedMemo?.color}
         onCheck={taskDispatch}
-        selected={taskMemo.selected}
       />
       <View
         style={{

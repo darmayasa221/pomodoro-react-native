@@ -12,6 +12,7 @@ import notifee from '@notifee/react-native';
 import BackgroundTimer from 'react-native-background-timer';
 
 const Timer: FC<TimerProps> = ({menu, onPress, isActived}) => {
+  console.log('TIMER COMPONENT ');
   const [timerDisplay, setTimerDisplay] = useState<string>('00:00');
   const [timerIsActived, setTimerIsActived] = useState<TimerIsActivedType>({
     start: false,
@@ -84,7 +85,7 @@ const Timer: FC<TimerProps> = ({menu, onPress, isActived}) => {
     };
   }, [timerIsActived, isActived.time, isActived.name, onPress]);
 
-  const timerHandle = useCallback(() => {
+  const timerHandler = useCallback(() => {
     BackgroundTimer.start();
     setTimerIsActived(prev => ({
       ...prev,
@@ -101,9 +102,7 @@ const Timer: FC<TimerProps> = ({menu, onPress, isActived}) => {
             styleView={activeMenu && styles.buttonHeader}
             styleText={styles.buttonHeaderText}
             text={name as string}
-            onPress={() => {
-              onPress({type: type as ActionType});
-            }}
+            onPress={onPress.bind(this, {type: type as ActionType})}
           />
         ))}
       </View>
@@ -116,7 +115,7 @@ const Timer: FC<TimerProps> = ({menu, onPress, isActived}) => {
             color: isActived.color,
           }}
           text={timerIsActived.buttonText}
-          onPress={timerHandle}
+          onPress={timerHandler}
         />
       </View>
     </View>
